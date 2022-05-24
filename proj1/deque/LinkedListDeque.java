@@ -22,14 +22,15 @@ public class LinkedListDeque<T> {
 
     LinkedListDeque() {
         head = new Node();
-        size = 0;
+        head.next = head;//TODO:死记硬背
+        head.prev = head;
     }
     public void addFirst(T item) {
         if (item == null) {
             throw new IllegalArgumentException();
         }
         Node newNode = new Node(item, head, head.next);
-        head.next.prev = newNode;
+        head.next.next.prev = newNode;//TODO:review
         head.next = newNode;
         size++;
     }
@@ -43,6 +44,7 @@ public class LinkedListDeque<T> {
         size++;
     }
     public T removeFirst() {
+        if(size==0) return null;  //TODO:review
         T temp = head.next.item;
         head.next.next.prev = head;
         head.next=head.next.next;
@@ -50,6 +52,7 @@ public class LinkedListDeque<T> {
         return temp;
     }
     public T removeLast() {
+        if(size==0) return null;
         T temp = head.prev.item;
         head.prev.prev.next=head;
         head.prev=head.prev.prev;
